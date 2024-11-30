@@ -9,19 +9,20 @@ std::set <FamilyMemembers*> children;
 
 //Compara por edad
 bool operator<(const FamilyMemembers& other) const {
-        return age < other.age;
+        return name < other.name;
     }
 
 };
 
 //Main Functions
-
+void InsertMember(std::set <FamilyMemembers>& tree);
 //Auxiliar Functions
 void MainMenu (int &option);
 
 
 int main (int argc, char *argv[]) {
   int option; 
+  std::set <FamilyMemembers> FamilyTree;
 
   do {
   
@@ -30,6 +31,7 @@ int main (int argc, char *argv[]) {
   switch (option)
   {
   case 1: 
+    InsertMember(FamilyTree);
     break;
 
   case 2: 
@@ -55,6 +57,29 @@ int main (int argc, char *argv[]) {
   } while (option != 6);
 
   return 0; 
+}
+
+void InsertMember(std::set <FamilyMemembers>& tree) {
+  if (tree.empty()){
+    FamilyMemembers oldestMember;
+    std::cout << "\nIngrese el nombre del miembro mas longevo de tu arbol familiar: ";
+    std::cin.ignore();
+    getline(std::cin, oldestMember.name);
+    std::cout << "Ingrese la edad del miembro familiar: "; 
+    std::cin >> oldestMember.age; 
+    tree.insert(oldestMember);
+
+    return;
+  }
+
+ 
+  FamilyMemembers member; 
+  std::cout << "\nIngrese el nombre del miembro familiar: ";
+  std::cin.ignore();
+  getline(std::cin, member.name);
+  std::cout << "Ingrese la edad del miembro familiar: ";
+  std::cin >> member.age;
+  tree.insert(member);
 }
 
 void MainMenu (int &option) {
