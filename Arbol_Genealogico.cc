@@ -16,8 +16,10 @@ bool operator<(const FamilyMemembers& other) const {
 
 //Main Functions
 void InsertMember(std::set <FamilyMemembers>& tree);
+FamilyMemembers FindMember (std::set<FamilyMemembers> tree, std::string name);
 //Auxiliar Functions
 void MainMenu (int &option);
+void AskMember (std::string &member);
 
 
 int main (int argc, char *argv[]) {
@@ -28,8 +30,7 @@ int main (int argc, char *argv[]) {
   
     MainMenu(option);
 
-  switch (option)
-  {
+  switch (option) {
   case 1: 
     InsertMember(FamilyTree);
     break;
@@ -37,8 +38,16 @@ int main (int argc, char *argv[]) {
   case 2: 
     break;
 
-  case 3: 
-    break;
+  case 3: {
+    std::string memberName; 
+     AskMember(memberName);
+    FamilyMemembers memberFound = FindMember(FamilyTree, memberName);
+
+    std::cout << "-----Miembro Encontrado -----" <<std::endl; 
+    std::cout << "Nombre: " << memberFound.name <<std::endl; 
+    std::cout << "Edad: " << memberFound.age <<std::endl; 
+
+    break;}
   
   case 4: 
     break;
@@ -82,6 +91,16 @@ void InsertMember(std::set <FamilyMemembers>& tree) {
   tree.insert(member);
 }
 
+FamilyMemembers FindMember(std::set <FamilyMemembers> tree, std::string name) {
+  for(auto member : tree) {
+    if (member.name == name) {
+      return member; 
+    }
+  }
+  std::cout << "\nNo se encontro el miembro buscado. " <<std::endl; 
+}
+
+
 void MainMenu (int &option) {
   std::cout << "\n-------FAMILY TREE-------" << std::endl; 
   std::cout << "1. Insertar miembros de la familia" << std::endl; 
@@ -92,4 +111,10 @@ void MainMenu (int &option) {
   std::cout << "6. Salir" <<std::endl;
   std::cout << "Ingrese una opcion: ";
   std::cin >> option; 
+}
+
+void AskMember (std::string &member) {
+  std::cout << "Ingrese el nombre del miembro familiar que desea buscar: ";
+    std::cin.ignore(); 
+    getline(std::cin, member);
 }
