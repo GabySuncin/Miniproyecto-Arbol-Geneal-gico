@@ -5,20 +5,21 @@
 struct FamilyMemembers {
 std::string name; 
 int age;
-std::set <FamilyMemembers*> children; 
+std::set <FamilyMemembers> children; 
 
 //Compara por edad
 bool operator<(const FamilyMemembers& other) const {
         return name < other.name;
     }
-
 };
 
 //Main Functions
 void InsertMember(std::set <FamilyMemembers>& tree);
-FamilyMemembers FindMember (std::set<FamilyMemembers> tree, std::string name);
+void InsertChildren(std::set <FamilyMemembers>& tree);
+FamilyMemembers FindMember (std::set<FamilyMemembers>& tree, std::string name);
 //Auxiliar Functions
 void MainMenu (int &option);
+void SubMenuInsertMember(int &option);
 void AskMember (std::string &member);
 
 
@@ -31,9 +32,25 @@ int main (int argc, char *argv[]) {
     MainMenu(option);
 
   switch (option) {
-  case 1: 
-    InsertMember(FamilyTree);
-    break;
+  case 1: {
+    int subOption; 
+     SubMenuInsertMember(subOption);
+     switch (subOption)
+     {
+     case 1:
+      InsertMember(FamilyTree);
+      break;
+
+      case 2:
+      InsertChildren(FamilyTree);
+      break;
+
+     default:
+     std::cout << "Ha ingresado una opcion de menu incorrecta..." <<std::endl; 
+      break;
+     }
+
+    break;}
 
   case 2: 
     break;
@@ -42,11 +59,9 @@ int main (int argc, char *argv[]) {
     std::string memberName; 
      AskMember(memberName);
     FamilyMemembers memberFound = FindMember(FamilyTree, memberName);
-
     std::cout << "-----Miembro Encontrado -----" <<std::endl; 
     std::cout << "Nombre: " << memberFound.name <<std::endl; 
     std::cout << "Edad: " << memberFound.age <<std::endl; 
-
     break;}
   
   case 4: 
@@ -81,7 +96,6 @@ void InsertMember(std::set <FamilyMemembers>& tree) {
     return;
   }
 
- 
   FamilyMemembers member; 
   std::cout << "\nIngrese el nombre del miembro familiar: ";
   std::cin.ignore();
@@ -91,8 +105,33 @@ void InsertMember(std::set <FamilyMemembers>& tree) {
   tree.insert(member);
 }
 
-FamilyMemembers FindMember(std::set <FamilyMemembers> tree, std::string name) {
-  for(auto member : tree) {
+void InsertChildren(std::set <FamilyMemembers>& tree) {
+if (tree.empty()){
+    std::cout << "\nEl Arbol esta vacio. Se necesitan agregar miembros familiares al arbol para poder agregar hijos." <<std::endl;
+    return;
+  }
+std::string parentName; 
+std::cout << "Ingrese el nombre del pariente del hijo/a:" <<std::endl;
+std::cin.ignore();
+getline(std::cin, parentName);
+
+FamilyMemembers parent = FindMember(tree,parentName);
+
+
+FamilyMemembers child;
+std::cout << "\nIngrese el nombre del hijo/a: ";
+  std::cin.ignore();
+  getline(std::cin, child.name);
+  std::cout << "Ingrese la edad del hijo/a: ";
+  std::cin >> child.age; 
+
+  parent.children.insert(child);
+
+  tree.insert(child);
+}
+
+FamilyMemembers FindMember(std::set <FamilyMemembers>& tree, std::string name) {
+  for(FamilyMemembers member : tree) {
     if (member.name == name) {
       return member; 
     }
@@ -111,6 +150,14 @@ void MainMenu (int &option) {
   std::cout << "6. Salir" <<std::endl;
   std::cout << "Ingrese una opcion: ";
   std::cin >> option; 
+}
+
+void SubMenuInsertMember(int &option) {
+  std::cout << "\nEscriba el numero de opcion segun lo que desea realizar: " <<std::endl; 
+    std::cout << "1. Insertar un miembro familiar " <<std::endl; 
+    std::cout << "2. Insertar un hijo de un miembro familiar " <<std::endl;
+    std::cout << "Ingrese una opcion: ";
+    std::cin >> option;
 }
 
 void AskMember (std::string &member) {
