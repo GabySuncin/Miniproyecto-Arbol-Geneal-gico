@@ -74,7 +74,8 @@ int main(int argc, char* argv[]) {
 
 Node* InsertMember(Node* OldestMember, FamilyMemembers newMember,
                    std::string relationship) {
-  //Si esta vacio el arbol, el primer nodo que se crea es el raiz, siendo este el miembro mas longevo
+  // Si esta vacio el arbol, el primer nodo que se crea es el raiz, siendo este
+  // el miembro mas longevo
   if (OldestMember == nullptr) {
     Node* newNode = new Node();
     newNode->familyMember = newMember;
@@ -85,7 +86,8 @@ Node* InsertMember(Node* OldestMember, FamilyMemembers newMember,
     return newNode;
   }
 
-//Segun la relacion recibida en los parametros, creamos ya sea a la madre o al padre. 
+  // Segun la relacion recibida en los parametros, creamos ya sea a la madre o
+  // al padre.
   if (relationship == "madre") {
     if (OldestMember->child1 == nullptr) {
       OldestMember->child1 = new Node();
@@ -95,7 +97,7 @@ Node* InsertMember(Node* OldestMember, FamilyMemembers newMember,
       std::cout << "\nSe ha agregado la madre correctamente";
     } else {
       std::cout << "\nLa madre ya está registrada.";
-    } 
+    }
   } else if (relationship == "padre") {
     if (OldestMember->child2 == nullptr) {
       OldestMember->child2 = new Node();
@@ -105,7 +107,9 @@ Node* InsertMember(Node* OldestMember, FamilyMemembers newMember,
       std::cout << "\nSe ha agregado al padre correctamente.";
     } else {
       std::cout << "\nEl padre ya está registrado.";
-    } //Mientras que si es un hijo, primero necesitamos saber de quien es, si de la madre o del padre, al ya saberlo, se ubica al hijo correspondientemente al padre o a la madre. 
+    }  // Mientras que si es un hijo, primero necesitamos saber de quien es, si
+       // de la madre o del padre, al ya saberlo, se ubica al hijo
+       // correspondientemente al padre o a la madre.
   } else if (relationship == "hijo") {
     if (OldestMember->child1 == nullptr && OldestMember->child2 == nullptr) {
       std::cout << "\nNo existe ni madre, ni padre. Debes agregar a una madre "
@@ -165,26 +169,26 @@ void PrintTree(Node* root, int level) {
 
   std::cout << std::string(level * 4, ' ') << root->familyMember.name << " ("
             << root->familyMember.age << ")" << std::endl;
-  //Imprime a la Madre con 4 espacios, para mostrar esa jerarquia a partir del nodo raiz
+  // Imprime a la Madre con 4 espacios, para mostrar esa jerarquia a partir del
+  // nodo raiz
   if (root->child1 != nullptr) {
     std::cout << std::string(level + 4, ' ')
               << "└ Madre: " << root->child1->familyMember.name << " ("
               << root->child1->familyMember.age << ")" << std::endl;
-    //Muestra ambos hijos de la madre (si hay) con 8 espacios para que se vea la forma jerargica
+    // Muestra ambos hijos de la madre (si hay) con 8 espacios para que se vea
+    // la forma jerargica
     if (root->child1->child1 != nullptr) {
       std::cout << std::string(level + 8, ' ')
                 << root->child1->child1->familyMember.name << " ("
-                << root->child1->child1->familyMember.age << ")"
-                << std::endl;
+                << root->child1->child1->familyMember.age << ")" << std::endl;
     }
     if (root->child1->child2 != nullptr) {
       std::cout << std::string(level + 8, ' ')
                 << root->child1->child2->familyMember.name << " ("
-                << root->child1->child2->familyMember.age << ")"
-                << std::endl;
+                << root->child1->child2->familyMember.age << ")" << std::endl;
     }
   }
-  //Se hace con el padre, lo mismo que con la madre. 
+  // Se hace con el padre, lo mismo que con la madre.
   if (root->child2 != nullptr) {
     std::cout << std::string(level + 4, ' ')
               << "└ Padre: " << root->child2->familyMember.name << " ("
