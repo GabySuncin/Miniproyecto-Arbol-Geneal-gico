@@ -38,17 +38,7 @@ int main(int argc, char* argv[]) {
         break;
       }
 
-      case 2:
-        break;
-
-      case 3: {
-        FamilyMemembers member;
-        AskMember(member);
-
-        break;
-      }
-
-      case 4: {
+      case 2: {
         int levels = 0;
         std::cout << "\n--------Arbol Genealogico--------" << std::endl
                   << std::endl;
@@ -56,10 +46,7 @@ int main(int argc, char* argv[]) {
         break;
       }
 
-      case 5:
-        break;
-
-      case 6:
+      case 3:
         std::cout << "\nSaliendo del Programa..." << std::endl;
         break;
 
@@ -67,7 +54,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Ha ingresado una opcion de menu incorrecta" << std::endl;
         break;
     }
-  } while (option != 6);
+  } while (option != 3);
 
   return 0;
 }
@@ -212,11 +199,8 @@ void PrintTree(Node* root, int level) {
 void MainMenu(int& option) {
   std::cout << std::endl << "\n-------FAMILY TREE-------" << std::endl;
   std::cout << "1. Insertar miembros de la familia" << std::endl;
-  std::cout << "2. Eliminar miembros de la familia" << std::endl;
-  std::cout << "3. Buscar un miembro de la familia" << std::endl;
-  std::cout << "4. Imprimir arbol completo" << std::endl;
-  std::cout << "5. Imprimir la relacion entre miembros" << std::endl;
-  std::cout << "6. Salir" << std::endl;
+  std::cout << "2. Imprimir arbol completo" << std::endl;
+  std::cout << "3. Salir" << std::endl;
   std::cout << "Ingrese una opcion: ";
   std::cin >> option;
 }
