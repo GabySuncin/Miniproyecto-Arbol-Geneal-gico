@@ -179,18 +179,18 @@ void PrintTree(Node* root, int level) {
   if (root->child2 != nullptr) {
     std::cout << std::string(level + 4, ' ')
               << "└ Padre: " << root->child2->familyMember.name << " ("
-              << root->child2->familyMember.age << " años)" << std::endl;
+              << root->child2->familyMember.age << ")" << std::endl;
 
     if (root->child2->child1 != nullptr) {
       std::cout << std::string(level + 8, ' ')
                 << root->child2->child1->familyMember.name << " ("
-                << root->child2->child1->familyMember.age << " años)"
+                << root->child2->child1->familyMember.age << ")"
                 << std::endl;
     }
     if (root->child2->child2 != nullptr) {
       std::cout << std::string(level + 8, ' ')
                 << root->child2->child2->familyMember.name << " ("
-                << root->child2->child2->familyMember.age << " años)"
+                << root->child2->child2->familyMember.age << ")"
                 << std::endl;
     }
   }
